@@ -4,6 +4,13 @@ if [[ ! -z "${DRONE_WORKSPACE}" ]]; then
 	cd ${DRONE_WORKSPACE}
 fi
 
+# use askpass helper script to pass username/password as variables
+if [[ ! -z "$DRONE_ASKPASS_PASSWORD" ]]; then
+	# override netrc when using the askpass credentials
+	export DRONE_NETRC_USERNAME=${DRONE_ASKPASS_USERNAME}
+	export DRONE_NETRC_PASSWORD=${DRONE_ASKPASS_PASSWORD}
+fi
+
 # if the netrc enviornment variables exist, write
 # the netrc file.
 
